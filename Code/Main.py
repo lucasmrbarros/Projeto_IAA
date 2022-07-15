@@ -1,25 +1,28 @@
-import funcoes
+from funcoes import criarBoard, fazMovimento, getInputValido, \
+    printBoard, verificaGanhador, verificaMovimento, movimentoIA
 
-jogo = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
-
-sair = 0
-iteracao = 0
-
-while sair == 0:
-
-    print()
-
-    if iteracao == 9:
-        sair = 1
+jogador = 0  # jogador 1
+board = criarBoard()
+ganhador = verificaGanhador(board)
+while (not ganhador):
+    printBoard(board)
+    print("===================")
+    if (jogador == 0):
+        i, j = movimentoIA(board, jogador)
     else:
-        funcoes.print_jogo(jogo)
-        print()
-        print("Selecione uma das casas disponíeis: ")
+        i, j = movimentoIA(board, jogador)
+        i = getInputValido("Digite a linha: ")
+        j = getInputValido("Digite a coluna: ")
 
-        jogada_usuario = int(input())
-        funcoes.jogada_humano(jogada_usuario, jogo)
+    if (verificaMovimento(board, i, j)):
+        fazMovimento(board, i, j, jogador)
+        jogador = (jogador + 1) % 2
+    else:
+        print("A posicao informado ja esta ocupada")
 
-        decisao = int(input())
-        funcoes.jogada_maquina(decisao, jogo)
+    ganhador = verificaGanhador(board)
 
-        iteracao + 1
+print("===================")
+printBoard(board)
+print("Ganhador = ", ganhador)
+print("===================")
