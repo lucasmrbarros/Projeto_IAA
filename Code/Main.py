@@ -1,16 +1,25 @@
-end = 0
+import funcoes
 
-jogo = ["1","2","3","4","5","6","7","8","9"]
+jogo = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
 
-for i in range(3):
- print(jogo[i], end= "")
+sair = 0
+iteracao = 0
 
-print()
+while sair == 0:
 
-for i in range(3, 6):
- print(jogo[i], end= "")
+    print()
 
-print()
+    if iteracao == 9:
+        sair = 1
+    else:
+        funcoes.print_jogo(jogo)
+        print()
+        print("Selecione uma das casas disponíeis: ")
 
-for i in range(6, 9):
- print(jogo[i], end= "")
+        jogada_usuario = int(input())
+        funcoes.jogada_humano(jogada_usuario, jogo)
+
+        decisao = int(input())
+        funcoes.jogada_maquina(decisao, jogo)
+
+        iteracao + 1
